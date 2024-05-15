@@ -21,7 +21,7 @@ const ResetPassword = () => {
      
     e.preventDefault()
 
-    await axios.post(`https://sandip-node-4.onrender.com/api/reset-password/${id}/${token}` , formData)
+    await axios.post(`http://localhost:8009/api/reset-password/${id}/${token}` , formData)
     .then((response) => {
         if(response.data.msg === 'Success'){
             alert(response.data.msg)

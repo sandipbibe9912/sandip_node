@@ -17,7 +17,7 @@ const ForgotPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    axios.post('https://sandip-node-4.onrender.com/api/send-email', formData)
+    axios.post('http://localhost:8009/api/send-email', formData)
       .then((response) => {
         if (response.data.status === 'Success') {
           console.log(response);
