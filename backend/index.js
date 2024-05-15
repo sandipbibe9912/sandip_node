@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors())
 dotenv.config()
 
-const port = process.env.PORT
+const port = process.env.PORT || 4000;
 mongoose.connect(process.env.MONGODBURL).then(() => {
     console.log("DB connected successfully")
 
