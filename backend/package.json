@@ -4,8 +4,8 @@
   "description": "for practice nodejs",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon app"
+    "dev": "nodemon index.js",
+    "build": "npm i"
   },
   "author": "Sandip",
   "license": "ISC",
