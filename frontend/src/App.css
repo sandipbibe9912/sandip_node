@@ -1,0 +1,11 @@
+body{
+    background-color: #d8eef2 !important;
+}
+.components{
+    margin-left: 14vw !important;
+}
+.para{
+    font-size: clamp(1.2rem, 0.4737rem + 2.1053vw, 1rem);
+    text-align: start;
+    color: #5C6574;
+}
