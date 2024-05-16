@@ -189,7 +189,7 @@ export const sendPasswordResetEmail = expressAsyncHandler(async(req , res) => {
             const secret =  user._id + process.env.SECRET_KEY
             const token = jwt.sign({userId: user._id} , secret , {expiresIn: '15m'})
             
-            const link = `https://graceful-moxie-b01643.netlify.app/resetpassword/${user._id}/${token}`
+            const link = `https://graceful-moxie-b01643.netlify.app/reset-password/${user._id}/${token}`
             console.log(link)
 
           let info = await transporter.sendMail({
