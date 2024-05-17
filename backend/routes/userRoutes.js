@@ -1,7 +1,7 @@
 import express from "express"
 
 
-import {  changepassword, deleteOne, editUser, fetchAll, fetchOne, loggedUser, loginUser, saveUser, sendPasswordResetEmail, userPasswordReset } from "../controllers/UserController.js";
+import {  changepassword, deleteOne, editUser, fetchAll, fetchOne, loggedUser, loginUser, saveUser, sendPasswordResetEmail, userPasswordReset } from "../controllers/adminController.js";
 import { validateUser } from "../middleware/auth-middleware.js";
 
 const routes = express.Router();

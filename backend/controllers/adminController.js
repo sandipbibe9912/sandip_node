@@ -1,9 +1,10 @@
-import userModel from "../models/User.js"
+import userModel from "../models/admin.js"
 import bcrypt from "bcrypt"
 import { response } from "express";
 import expressAsyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken"
 import transporter from "../config/emailConfig.js";
+import storeModel from "../models/store.js"
 
 export const saveUser = expressAsyncHandler(async(req , res) => {
 
@@ -29,16 +30,18 @@ export const saveUser = expressAsyncHandler(async(req , res) => {
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password , salt)
         const data = new userModel({
-            name:name,
-            email:email,
-            password:hashedPassword,
-            confirmPassword:confirmPassword,
-            tc:tc,
+            name: name,
+            email: email,
+            password: hashedPassword,
+            confirmPassword: confirmPassword,
+            tc: tc,
+            roles: ['ROLE_ADMIN'] 
         })
+        
 
         const saveUser = await userModel.create(data)
        const token = jwt.sign({userId: saveUser._id} , process.env.SECRET_KEY , {expiresIn: '5d'} )
-        res.status(200).json({status: "success" , msg: "User Saved Successfully" , token : token})
+        res.status(200).json({status: "success" , msg: "Users Saved Successfully" , token : token})
     }
 
 })
@@ -114,7 +117,7 @@ export const loginUser = expressAsyncHandler(async(req , res) => {
     const {email , password} = req.body
  if(email && password) {
 
- const isUserExist = await userModel.findOne({email})
+ const isUserExist = await userModel.findOne({email}).select('-confirmPassword -tc');
     if(isUserExist)  {
         const isMatch = await bcrypt.compare(password , isUserExist.password)
 
@@ -127,10 +130,23 @@ export const loginUser = expressAsyncHandler(async(req , res) => {
                 res.status(200).json({status: "failure" , msg: "Email or Password does not match" })
             }
     }
-    else{
-        res.status(404).json({status: "failed" , msg: "User not exist"})
-    }
+  
+     const store = await storeModel.findOne({storeEmail : email})   
+     if(store){
 
+        const isMatched = await bcrypt.compare(password , store.password)
+
+        if(isMatched && (email === store.storeEmail)){
+            const jwttoken = jwt.sign({storeId: store._id} , process.env.SECRET_KEY , {expiresIn: '50m'})
+            res.status(200).json({status: "success" , msg: "Login Successfull" , token: jwttoken , user : store})
+        }
+        else{
+            res.status(200).json({status: "failure" , msg: "Email or Password does not match" })
+        }
+     }
+    
+     res.status(404).json({status: "failed" , msg: "Usser not exist"})
+  
 }
 else {
     res.status(404).json({status: "failed" , msg: "Provide both Email and Password"})

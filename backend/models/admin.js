@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  
   password: {
     type: String,
     required: true,
@@ -22,6 +23,16 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+
+roles: {
+   type : [{
+      type: String,
+      enum: ['ROLE_ADMIN' , 'ROLE-SUPER_ADMIN' , 'ROLE_USER'],
+      default: ['ROLE_ADMIN']
+   }]
+}
+
+
 
 })
 

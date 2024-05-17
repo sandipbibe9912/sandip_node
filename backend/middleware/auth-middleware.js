@@ -1,5 +1,5 @@
 import  jwt  from "jsonwebtoken";
-import userModel from "../models/User.js"
+import userModel from "../models/admin.js"
 
 export var validateUser = async(req , res , next) => {
 
