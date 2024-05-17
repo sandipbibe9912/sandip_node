@@ -8,14 +8,14 @@ import storeModel from "../models/store.js"
 
 export const saveUser = expressAsyncHandler(async(req , res) => {
 
-    const {name , email , password , confirmPassword , tc} = req.body;
+    const {name , email , password , confirmPassword , tc , storeId} = req.body;
 
     const userExist = await userModel.findOne({email});
 
     if(userExist) {
         res.status(404).json({status: "failed" , msg: "User already exists"})
     }
-    else if(!name || !email || !password || !confirmPassword || !tc) {
+    else if(!name || !email || !password || !confirmPassword || !tc ||  !storeId) {
          
         res.status(403).json({status: "failed" , msg: "Please fill all fields"})
     }
@@ -35,6 +35,7 @@ export const saveUser = expressAsyncHandler(async(req , res) => {
             password: hashedPassword,
             confirmPassword: confirmPassword,
             tc: tc,
+            storeId: storeId,
             roles: ['ROLE_ADMIN'] 
         })
         
@@ -56,7 +57,7 @@ export const editUser = expressAsyncHandler(async(req , res) => {
         res.status(404).json({status: "failed" , msg: "User with id not found"})
     }
     else{
-        const {name , email , password , confirmPassword , tc} = req.body;
+        const {name , email , password , confirmPassword , storeId , tc} = req.body;
 
         const isUserExistWithEmail = await userModel.findOne({email , _id: { $ne: id}})
         if(isUserExistWithEmail){

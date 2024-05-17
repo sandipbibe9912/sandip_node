@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import cors from "cors";
 import routes from './routes/userRoutes.js';
 import storeRoutes from './routes/storeRoutes.js';
+import sidebarRoutes from './routes/sidebarRoutes.js';
 
 const app = express()
 app.use(bodyParser.json());
@@ -23,4 +24,4 @@ mongoose.connect(process.env.MONGODBURL).then(() => {
 
 app.use(express.json());
 
-app.use('/api' , routes , storeRoutes)
+app.use('/api' , routes , storeRoutes , sidebarRoutes)

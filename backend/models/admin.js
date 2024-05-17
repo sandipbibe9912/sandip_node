@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  storeId: {
+    type: String,
+    required: true,
+  },
   tc: {
     type: Boolean,
     required: true,
