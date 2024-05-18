@@ -88,6 +88,24 @@ export const fetchOne = expressAsyncHandler(async(req , res) => {
      }
 })
 
+export const fetchUserByStoreId = expressAsyncHandler(async(req , res) => {
+
+   const {storeId} = req.params
+
+   const users = await userModel.find({storeId})
+
+   if(users){
+        
+       res.status(200).json(users)
+   }
+   else{
+       
+       res.status(404).json({status: "failure" , msg: "Users not found" , data: getAllUser})
+  
+   }
+
+})
+
 export const fetchAll = expressAsyncHandler(async(req , res) => {
 
      const getAllUser = await userModel.find().select('-password -confirmPassword');
