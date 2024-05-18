@@ -1,7 +1,7 @@
 import express from "express"
 
 
-import {  changepassword, deleteOne, editUser, fetchAll, fetchOne, loggedUser, loginUser, saveUser, sendPasswordResetEmail, userPasswordReset } from "../controllers/adminController.js";
+import {  changepassword, deleteOne, editUser, fetchAll, fetchOne, fetchUserIdandName, loggedUser, loginUser, saveUser, sendPasswordResetEmail, userPasswordReset } from "../controllers/adminController.js";
 import { validateUser } from "../middleware/auth-middleware.js";
 
 const routes = express.Router();
@@ -13,6 +13,7 @@ routes.post("/create" , saveUser)
 routes.put("/update/:id" , editUser)
 routes.get("/getone/:id" , fetchOne)
 routes.get("/getall" , fetchAll)
+routes.get("/fetchOnlyNameAndId/:storeId" , fetchUserIdandName)
 routes.delete("/delete/:id" , deleteOne)
 routes.post("/login" , loginUser)
 // routes.get("/logout" , logout)

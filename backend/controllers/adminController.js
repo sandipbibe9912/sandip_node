@@ -99,6 +99,24 @@ export const fetchAll = expressAsyncHandler(async(req , res) => {
      res.status(200).json({status: "Success" , msg: "Users found" , data: getAllUser})
 })
 
+
+export const fetchUserIdandName = expressAsyncHandler(async(req , res) => {
+            
+    const {storeId} = req.params
+
+    const users = await userModel.find({storeId}).select('_id , name')
+
+    if(users){
+         
+        res.status(200).json(users)
+    }
+    else{
+        
+        res.status(404).json({status: "failure" , msg: "Users not found" , data: getAllUser})
+   
+    }
+})
+
 export const deleteOne = async(req , res) => {
     const {id} = req.params
 
