@@ -12,10 +12,10 @@ const sidebarMenu = new mongoose.Schema({
         required: true
     },
     status : {
-        type : boolean ,
+        type : Boolean ,
         required: true
     },
     
 })
 
-export default mongoose.model("Sidebar" , sidebarMenu)
+export default sidebarMenu

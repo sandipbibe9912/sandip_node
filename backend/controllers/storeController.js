@@ -98,7 +98,7 @@ export const getone = expressAsyncHandler(async(req , res) => {
    }
 })
 
-export const updateStore = (async(req,res) => {
+export const updateStore = expressAsyncHandler(async(req,res) => {
      
     const {id} = req.params;
 

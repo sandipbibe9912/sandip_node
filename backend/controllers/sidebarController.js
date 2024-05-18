@@ -1,7 +1,8 @@
-import userSidebar from "../models/userSidebar"
+import expressAsyncHandler from "express-async-handler"
+import userSidebar from "../models/userSidebar.js"
 
 
-export const addSidebar = async(req , res) => {
+export const addSidebar = expressAsyncHandler(async(req , res) => {
 
    const { storeId , userId , sidebarMenu} = req.body
   
@@ -22,4 +23,4 @@ export const addSidebar = async(req , res) => {
       res.status(200).json({status : "Success" , msg : "Successfully added!" , data : datas})
    }
 
-}
+})

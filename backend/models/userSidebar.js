@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import sidebarMenu from "./sidebarMenu";
+import sidebarMenu from "./sidebarMenu.js";
 
 
 const userSidebar = new mongoose.Schema({
@@ -15,4 +15,9 @@ const userSidebar = new mongoose.Schema({
     sidebarMenu : [sidebarMenu]
 })
 
-export default mongoose.model("userSidebar" , userSidebar)
+
+
+// const userSidebar = mongoose.model("UserSidebar", userSidebarSchema);
+// export default userSidebar;
+
+export default mongoose.model("UserSidebar" , userSidebar)
