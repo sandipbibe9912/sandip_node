@@ -5,22 +5,30 @@ import userSidebar from "../models/userSidebar.js"
 export const addSidebar = expressAsyncHandler(async(req , res) => {
 
    const { storeId , userId , sidebarMenu} = req.body
+
+   const data = await userSidebar.findOne({userId})
+
+
   
    if(!storeId || !userId || !Array.isArray(sidebarMenu)) {
      
      res.status(404).json({status : "failed" , msg : "Please enter the data first "})
    }
-   else{
+   else if (!data){
 
-      const data = new  userSidebar({
+      const dataa = new  userSidebar({
         storeId,
         userId,
         sidebarMenu,
       })
 
-    const datas =   await userSidebar.create(data)
+    const datas =   await userSidebar.create(dataa)
 
       res.status(200).json({status : "Success" , msg : "Successfully added!" , data : datas})
+   }
+   else{
+          
+    res.status(401).json({status : "failure" , msg : "Already assigned Role!!!"})
    }
 
 })
